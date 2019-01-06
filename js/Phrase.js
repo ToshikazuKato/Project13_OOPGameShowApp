@@ -8,8 +8,9 @@
    constructor (phrase) {
       this.phrase = phrase.toLowerCase();
       this.wordArray = [];
-   }
-   // method
+   }//constructor
+
+   // methods
    addPhraseToDisplay() {
      const ul = document.querySelector('#phrase ul');
      this.wordArray = [...this.phrase];
@@ -30,7 +31,7 @@
 
    showMatchedLetter(matchedLetter) {
      const letter = document.getElementsByClassName(`${matchedLetter}`);
-     
+
      for (var i = 0; i < letter.length; i++) {
        letter[i].classList.replace('hide','show');
      }
@@ -38,10 +39,13 @@
 
  } //Phrase class
 
-const test = new Phrase('a bcA BS ');
+
+// debug
+
+//const test = new Phrase('a bcA BS ');
 // console.log(test.wordArray);
- console.log(test.addPhraseToDisplay());
+//console.log(test.addPhraseToDisplay());
 // console.log(test.wordArray);
 // console.log(test.checkLetter('a'));
 // console.log(test.checkLetter('d'));
-console.log(test.showMatchedLetter('a'));
+//console.log(test.showMatchedLetter('a'));

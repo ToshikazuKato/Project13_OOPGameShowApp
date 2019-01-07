@@ -57,7 +57,7 @@
  }// Game class
 
  //debug
- // const test = new Game();
+ const test = new Game();
  // console.log(test.startGame());
  // console.log(test.getRandomPhrase());
  // console.log(test.removeLife());

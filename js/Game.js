@@ -31,18 +31,50 @@
       return random;
     }
 
-    handleInteraction(letter) {
+    handleInteraction(selectedLetter) {
+
+      function findKey (className){
+        const keys = Array.from(document.getElementsByClassName('key'));
+        keys.forEach( (keysVal, keysIndex) => {
+          if (keysVal.innerHTML === selectedLetter) {
+            keysVal.setAttribute('disabled', 'disabled');
+            keysVal.classList.add(className);
+          }
+
+        }); //keys.forEach
+      }
+
+      //Disable the selected letter’s onscreen keyboard button.
+      this.activePhrase.wordArray.forEach((activePhraseVal, activePhraseIndex) => {
+        if (activePhraseVal === selectedLetter) {
+          //correct
+          findKey('chosen');
+          this.activePhrase.showMatchedLetter();
+          let gameResult;
+          gameResult = this.checkForWin();
+          console.log(gameResult);
+          if(gameResult === true){
+            //win
+            gameOver(true);
+          }
+        }else{
+          //wrong
+          findKey('wrong');
+          //this.removeLife();
+        }
+      }); //this.activePhrase.wordArray
 
     }
 
     removeLife() {
       this.missed += 1;
       const heart = document.querySelector('.tries img');
-      this.missed < 5 ? heart.src = 'images/lostHeart.png' : this.gameOver();
+      this.missed < 5 ? heart.src = 'images/lostHeart.png' : this.gameOver(false);
     }
+
     // check if there's any element having hide class.
-    //yes(some letters are stilll hidden) => false,
-    //no(all letters are revealed) => true
+    //yes(some letters are stilll hidden) => false, continue game
+    //no(all letters are revealed) => true, win
     checkForWin() {
       const letters = document.querySelectorAll('.hide');
       let result;
@@ -50,7 +82,24 @@
       return result;
     }
 
-    gameOver() {
+    gameOver(result) {
+      const overlay = document.getElementById('overlay');
+      let resultClass;
+      let message
+
+      if (result === true) {
+        resultClass = 'win'
+        message = 'You win!';
+      }else{
+        resultClass = 'lose' ;
+        message = 'You lose!';
+      }
+
+      overlay.classList.replace('start', `${resultClass}`);
+      overlay.style.display = 'flex';
+
+      const gameOverMessage = document.getElementById('game-over-message');
+      gameOverMessage.innerHTML = message;
 
     }
 
@@ -58,7 +107,9 @@
 
  //debug
  const test = new Game();
- // console.log(test.startGame());
+  console.log(test.startGame());
  // console.log(test.getRandomPhrase());
  // console.log(test.removeLife());
  // console.log(test.checkForWin());
+ //console.log(test.gameOver(true));
+ console.log(test.handleInteraction('b'));

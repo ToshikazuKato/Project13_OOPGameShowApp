@@ -57,8 +57,8 @@
  }// Game class
 
  //debug
- const test = new Game();
- console.log(test.startGame());
- console.log(test.getRandomPhrase());
- console.log(test.removeLife());
- console.log(test.checkForWin());
+ // const test = new Game();
+ // console.log(test.startGame());
+ // console.log(test.getRandomPhrase());
+ // console.log(test.removeLife());
+ // console.log(test.checkForWin());

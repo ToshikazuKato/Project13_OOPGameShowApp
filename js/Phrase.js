@@ -24,7 +24,7 @@
        ul.innerHTML += liHTML;
      }
    }
-   
+
    checkLetter(letter) {
      return this.wordArray.includes(letter);
    }
@@ -38,14 +38,3 @@
    }
 
  } //Phrase class
-
-
-// debug
-
-//const test = new Phrase('a bcA BS ');
-// console.log(test.wordArray);
-//console.log(test.addPhraseToDisplay());
-// console.log(test.wordArray);
-// console.log(test.checkLetter('a'));
-// console.log(test.checkLetter('d'));
-//console.log(test.showMatchedLetter('a'));

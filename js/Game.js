@@ -32,7 +32,6 @@
     }
 
     handleInteraction(selectedLetter) {
-
       function findKey (className){
         const keys = Array.from(document.getElementsByClassName('key'));
         keys.forEach( (keysVal, keysIndex) => {
@@ -45,31 +44,32 @@
       }
 
       //Disable the selected letter’s onscreen keyboard button.
-      this.activePhrase.wordArray.forEach((activePhraseVal, activePhraseIndex) => {
-        if (activePhraseVal === selectedLetter) {
+      //this.activePhrase.wordArray.forEach((activePhraseVal, activePhraseIndex) => {
+        //console.log('activePhraseVal is '+activePhraseVal);
+        //console.log(this.activePhrase.wordArray.includes(selectedLetter));
+        if (this.activePhrase.wordArray.includes(selectedLetter)) {
           //correct
           findKey('chosen');
-          this.activePhrase.showMatchedLetter();
+          this.activePhrase.showMatchedLetter(selectedLetter);
           let gameResult;
           gameResult = this.checkForWin();
-          console.log(gameResult);
           if(gameResult === true){
             //win
-            gameOver(true);
+            this.gameOver(true);
           }
         }else{
           //wrong
           findKey('wrong');
-          //this.removeLife();
+          this.removeLife();
         }
-      }); //this.activePhrase.wordArray
+      //}); //this.activePhrase.wordArray
 
     }
 
     removeLife() {
+      const heart = document.querySelectorAll('.tries img');
+      this.missed < 4 ? heart[this.missed].src = 'images/lostHeart.png' : this.gameOver(false);
       this.missed += 1;
-      const heart = document.querySelector('.tries img');
-      this.missed < 5 ? heart.src = 'images/lostHeart.png' : this.gameOver(false);
     }
 
     // check if there's any element having hide class.
@@ -103,13 +103,28 @@
 
     }
 
- }// Game class
+    resetGame() {
+      //phrase section
+      const ul = document.querySelector('#phrase ul');
+      //console.log(ul.innerHTML);
+      ul.innerHTML = '';
 
- //debug
- const test = new Game();
-  console.log(test.startGame());
- // console.log(test.getRandomPhrase());
- // console.log(test.removeLife());
- // console.log(test.checkForWin());
- //console.log(test.gameOver(true));
- console.log(test.handleInteraction('b'));
+      //keyboard section
+      const wrong = Array.from(document.getElementsByClassName('wrong'));
+      wrong.forEach(val => {
+        val.classList.remove('wrong');
+      });
+      const chosen = Array.from(document.getElementsByClassName('chosen'));
+      chosen.forEach(val => {
+        val.classList.remove('chosen');
+      });
+
+      //heart section
+      const heart = Array.from(document.querySelectorAll('.tries img'));
+      heart.forEach( val => {
+        val.src = 'images/liveHeart.png';
+      });
+
+    }
+
+ }// Game class

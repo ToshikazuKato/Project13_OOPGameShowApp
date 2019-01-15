@@ -31,7 +31,6 @@
 
    showMatchedLetter(matchedLetter) {
      const letter = document.getElementsByClassName(`${matchedLetter}`);
-
      for (var i = 0; i < letter.length; i++) {
        letter[i].classList.replace('hide','show');
      }

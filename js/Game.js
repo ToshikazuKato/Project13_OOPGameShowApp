@@ -39,14 +39,10 @@
             keysVal.setAttribute('disabled', 'disabled');
             keysVal.classList.add(className);
           }
-
         }); //keys.forEach
       }
 
       //Disable the selected letter’s onscreen keyboard button.
-      //this.activePhrase.wordArray.forEach((activePhraseVal, activePhraseIndex) => {
-        //console.log('activePhraseVal is '+activePhraseVal);
-        //console.log(this.activePhrase.wordArray.includes(selectedLetter));
         if (this.activePhrase.wordArray.includes(selectedLetter)) {
           //correct
           findKey('chosen');
@@ -60,9 +56,9 @@
         }else{
           //wrong
           findKey('wrong');
+          //should make it impossible to run removeLife() when the same wrong button was pushed more than once
           this.removeLife();
         }
-      //}); //this.activePhrase.wordArray
 
     }
 
@@ -86,7 +82,7 @@
       const overlay = document.getElementById('overlay');
       let resultClass;
       let message
-
+      //show overlay with message
       if (result === true) {
         resultClass = 'win'
         message = 'You win!';
@@ -94,13 +90,11 @@
         resultClass = 'lose' ;
         message = 'You lose!';
       }
-
       overlay.classList.replace('start', `${resultClass}`);
       overlay.style.display = 'flex';
 
       const gameOverMessage = document.getElementById('game-over-message');
       gameOverMessage.innerHTML = message;
-
     }
 
     resetGame() {
@@ -124,7 +118,6 @@
       heart.forEach( val => {
         val.src = 'images/liveHeart.png';
       });
-
     }
 
  }// Game class

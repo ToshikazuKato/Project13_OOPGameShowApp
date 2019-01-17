@@ -32,6 +32,7 @@
     }
 
     handleInteraction(selectedLetter) {
+      let check = false;
       function findKey (className){
         const keys = Array.from(document.getElementsByClassName('key'));
         keys.forEach( (keysVal, keysIndex) => {
@@ -42,7 +43,7 @@
         }); //keys.forEach
       }
 
-      //Disable the selected letter’s onscreen keyboard button.
+        //Disable the selected letter’s onscreen keyboard button.
         if (this.activePhrase.wordArray.includes(selectedLetter)) {
           //correct
           findKey('chosen');
@@ -54,10 +55,21 @@
             this.gameOver(true);
           }
         }else{
+
+          //check whether it's already been selected or not. If yes, skip removeLife()
+          const wrong =  Array.from(document.getElementsByClassName('wrong'));
+          wrong.forEach( (val, index) => {
+            if(val.innerHTML === selectedLetter){
+              check = true;
+            }
+          } );
+
           //wrong
           findKey('wrong');
-          //should make it impossible to run removeLife() when the same wrong button was pushed more than once
-          this.removeLife();
+          if(check === false){
+            this.removeLife();
+          }
+
         }
 
     }
@@ -81,14 +93,16 @@
     gameOver(result) {
       const overlay = document.getElementById('overlay');
       let resultClass;
-      let message
+      let message;
       //show overlay with message
       if (result === true) {
-        resultClass = 'win'
+        resultClass = 'win';
         message = 'You win!';
+        overlay.classList.replace('lose', `${resultClass}`);
       }else{
         resultClass = 'lose' ;
         message = 'You lose!';
+        overlay.classList.replace('win', `${resultClass}`);
       }
       overlay.classList.replace('start', `${resultClass}`);
       overlay.style.display = 'flex';
@@ -100,7 +114,6 @@
     resetGame() {
       //phrase section
       const ul = document.querySelector('#phrase ul');
-      //console.log(ul.innerHTML);
       ul.innerHTML = '';
 
       //keyboard section
@@ -117,6 +130,7 @@
       const heart = Array.from(document.querySelectorAll('.tries img'));
       heart.forEach( val => {
         val.src = 'images/liveHeart.png';
+        this.missed = 0;
       });
     }
 

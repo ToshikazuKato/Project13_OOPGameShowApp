@@ -10,7 +10,6 @@
  });
 
  const keys = Array.from(document.getElementsByClassName('key'));
-
  //keyboard button trigger
  keys.forEach( (keysVal, keysIndex) => {
    keysVal.addEventListener('click', event => {

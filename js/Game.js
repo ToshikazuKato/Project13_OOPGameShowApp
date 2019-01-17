@@ -120,10 +120,12 @@
       const wrong = Array.from(document.getElementsByClassName('wrong'));
       wrong.forEach(val => {
         val.classList.remove('wrong');
+        val.removeAttribute('disabled');
       });
       const chosen = Array.from(document.getElementsByClassName('chosen'));
       chosen.forEach(val => {
         val.classList.remove('chosen');
+        val.removeAttribute('disabled');
       });
 
       //heart section
